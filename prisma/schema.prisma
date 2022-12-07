@@ -9,3 +9,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Invoice {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+
+  ClientName String 
+  ClientEmail String
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+
+  email     String   @unique
+  name      String
+
+  invoices  Invoice[]
+}
