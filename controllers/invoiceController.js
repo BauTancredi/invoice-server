@@ -3,9 +3,9 @@ const prisma = require("../prisma");
 exports.getAllInvoices = async (req, res) => {
   try {
     const invoices = await prisma.invoice.findMany({
-      include: {
-        user: true,
-      },
+      // include: {
+      //   user: true,
+      // },
     });
     res.json(invoices);
   } catch (err) {
