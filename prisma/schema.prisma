@@ -15,19 +15,45 @@ model Invoice {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
-  ClientName String 
-  ClientEmail String
+  clientName         String
+  clientEmail        String
+  fromStreetAddress  String
+  fromCity           String
+  fromPostCode       String
+  fromCountry        String
+  toStreetAddress    String
+  toCity             String
+  toPostCode         String
+  toCountry          String
+  invoiceDate        DateTime
+  paymentTerms       Int
+  projectDescription String
+  items              InvoiceItem[]
+  status             String
+}
+
+model InvoiceItem {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  invoiceId Int
+
+  name     String
+  quantity Int
+  price    Float
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  email     String   @unique 
-  name      String
-  password  String
+  email    String @unique
+  name     String
+  password String
 
-  invoices  Invoice[]
+  invoices Invoice[]
 }
