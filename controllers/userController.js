@@ -44,6 +44,7 @@ exports.signup = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name
       },
     };
 
@@ -57,7 +58,7 @@ exports.signup = async (req, res) => {
       }
     );
   } catch (err) {
-    // console.error(err);
+    console.error(err);
     res.status(500).send("Server error");
   }
 };
@@ -89,12 +90,11 @@ exports.login = async (req, res) => {  // check for errors
       return res.status(401).json({ msg: "Invalid credentials" });
     }
 
-
-
     // return jsonwebtoken
     const payload = {
       user: {
         id: user.id,
+        name: user.name
       },
     };
 
